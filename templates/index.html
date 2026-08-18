@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Bike Rental Predictor</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            padding: 35px 20px;
+
+            background:
+                radial-gradient(circle at top left, #2563eb 0%, transparent 30%),
+                radial-gradient(circle at bottom right, #7c3aed 0%, transparent 30%),
+                linear-gradient(135deg, #020617, #0f172a, #1e1b4b);
+
+            color: white;
+        }
+
+
+        /* MAIN CONTAINER */
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: auto;
+
+            display: grid;
+            grid-template-columns: 0.75fr 1.25fr;
+
+            background: rgba(255, 255, 255, 0.07);
+
+            border: 1px solid rgba(255, 255, 255, 0.15);
+
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+
+            border-radius: 28px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 25px 70px rgba(0, 0, 0, 0.5);
+        }
+
+
+        /* =========================
+           LEFT SECTION
+        ========================== */
+
+        .left {
+            padding: 55px 42px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(37, 99, 235, 0.25),
+                    rgba(124, 58, 237, 0.15)
+                );
+        }
+
+
+        .logo {
+            width: 68px;
+            height: 68px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 18px;
+
+            font-size: 32px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #7c3aed
+                );
+
+            box-shadow:
+                0 12px 35px rgba(37, 99, 235, 0.35);
+
+            margin-bottom: 25px;
+        }
+
+
+        .left h1 {
+            font-size: 40px;
+            line-height: 1.15;
+
+            margin-bottom: 20px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #ffffff,
+                    #93c5fd,
+                    #c4b5fd
+                );
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+
+        .left p {
+            color: #cbd5e1;
+
+            font-size: 16px;
+
+            line-height: 1.7;
+
+            max-width: 400px;
+        }
+
+
+        /* FEATURES */
+
+        .features {
+            margin-top: 38px;
+        }
+
+
+        .feature {
+            display: flex;
+            align-items: center;
+
+            margin-bottom: 17px;
+
+            color: #e2e8f0;
+
+            font-size: 14px;
+        }
+
+
+        .feature-icon {
+            width: 38px;
+            height: 38px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            margin-right: 13px;
+
+            border-radius: 11px;
+
+            background: rgba(59, 130, 246, 0.18);
+
+            color: #93c5fd;
+
+            border: 1px solid rgba(96, 165, 250, 0.15);
+        }
+
+
+        /* =========================
+           RIGHT SECTION
+        ========================== */
+
+        .right {
+            padding: 40px 45px;
+
+            background: rgba(15, 23, 42, 0.72);
+        }
+
+
+        .right h2 {
+            font-size: 29px;
+
+            margin-bottom: 6px;
+        }
+
+
+        .subtitle {
+            color: #94a3b8;
+
+            font-size: 14px;
+
+            margin-bottom: 25px;
+        }
+
+
+        /* FORM SECTION TITLE */
+
+        .section-title {
+            display: flex;
+            align-items: center;
+
+            gap: 8px;
+
+            margin-bottom: 16px;
+
+            color: #93c5fd;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1px;
+        }
+
+
+        .section-title::before {
+            content: "";
+
+            width: 4px;
+            height: 17px;
+
+            border-radius: 5px;
+
+            background:
+                linear-gradient(
+                    #3b82f6,
+                    #8b5cf6
+                );
+        }
+
+
+        /* =========================
+           FORM GRID
+        ========================== */
+
+        .form-grid {
+            display: grid;
+
+            grid-template-columns: repeat(2, 1fr);
+
+            column-gap: 18px;
+
+            row-gap: 14px;
+        }
+
+
+        .form-group {
+            width: 100%;
+        }
+
+
+        label {
+            display: block;
+
+            color: #cbd5e1;
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            margin-bottom: 7px;
+        }
+
+
+        input {
+            width: 100%;
+
+            height: 45px;
+
+            padding: 0 14px;
+
+            border-radius: 11px;
+
+            border: 1px solid #334155;
+
+            background:
+                rgba(30, 41, 59, 0.85);
+
+            color: white;
+
+            font-size: 14px;
+
+            outline: none;
+
+            transition: all 0.25s ease;
+        }
+
+
+        input::placeholder {
+            color: #64748b;
+        }
+
+
+        input:hover {
+            border-color: #475569;
+        }
+
+
+        input:focus {
+            border-color: #60a5fa;
+
+            box-shadow:
+                0 0 0 3px rgba(59, 130, 246, 0.13);
+
+            background:
+                rgba(30, 41, 59, 1);
+
+            transform: translateY(-1px);
+        }
+
+
+        /* REMOVE NUMBER ARROWS */
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type=number] {
+            appearance: textfield;
+            -moz-appearance: textfield;
+        }
+
+
+        /* =========================
+           BUTTON
+        ========================== */
+
+        button {
+            width: 100%;
+
+            height: 50px;
+
+            margin-top: 22px;
+
+            border: none;
+
+            border-radius: 13px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #7c3aed
+                );
+
+            color: white;
+
+            font-size: 15px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: all 0.3s ease;
+
+            box-shadow:
+                0 10px 25px rgba(37, 99, 235, 0.25);
+        }
+
+
+        button:hover {
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 15px 35px rgba(37, 99, 235, 0.4);
+        }
+
+
+        button:active {
+            transform: translateY(0);
+        }
+
+
+        /* =========================
+           RESULT
+        ========================== */
+
+        .result {
+            margin-top: 24px;
+
+            padding: 20px;
+
+            border-radius: 17px;
+
+            text-align: center;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(34, 197, 94, 0.10),
+                    rgba(59, 130, 246, 0.12)
+                );
+
+            border:
+                1px solid rgba(96, 165, 250, 0.25);
+
+            animation:
+                appear 0.5s ease;
+        }
+
+
+        .result-title {
+            color: #94a3b8;
+
+            font-size: 13px;
+
+            margin-bottom: 5px;
+        }
+
+
+        .result-value {
+            font-size: 36px;
+
+            font-weight: 800;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #60a5fa,
+                    #a78bfa
+                );
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+
+        .result-text {
+            color: #cbd5e1;
+
+            font-size: 13px;
+
+            margin-top: 5px;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================== */
+
+        .footer {
+            margin-top: 18px;
+
+            text-align: center;
+
+            color: #64748b;
+
+            font-size: 11px;
+        }
+
+
+        /* =========================
+           ANIMATION
+        ========================== */
+
+        @keyframes appear {
+
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+
+        /* =========================
+           TABLET
+        ========================== */
+
+        @media (max-width: 950px) {
+
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .left {
+                padding: 40px;
+            }
+
+            .left p {
+                max-width: 700px;
+            }
+
+            .features {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+
+            .feature {
+                margin-bottom: 0;
+            }
+
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================== */
+
+        @media (max-width: 600px) {
+
+            body {
+                padding: 15px;
+            }
+
+            .left {
+                padding: 35px 25px;
+            }
+
+            .right {
+                padding: 30px 22px;
+            }
+
+            .left h1 {
+                font-size: 32px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .features {
+                display: block;
+            }
+
+            .feature {
+                margin-bottom: 13px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <!-- =========================
+         LEFT SIDE
+    ========================== -->
+
+    <div class="left">
+
+        <div class="logo">
+            🚲
+        </div>
+
+
+        <h1>
+            Bike Rental<br>
+            Predictor
+        </h1>
+
+
+        <p>
+            Predict the total number of bike rentals
+            using weather, seasonal, environmental,
+            and user-related information.
+        </p>
+
+
+        <div class="features">
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    ✓
+                </div>
+
+                <span>
+                    Machine Learning Powered
+                </span>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    ⚡
+                </div>
+
+                <span>
+                    Instant Prediction
+                </span>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    📊
+                </div>
+
+                <span>
+                    Multiple Linear Regression
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================
+         RIGHT SIDE
+    ========================== -->
+
+    <div class="right">
+
+
+        <h2>
+            Make a Prediction
+        </h2>
+
+
+        <p class="subtitle">
+            Enter the required bike-sharing details below.
+        </p>
+
+
+        <div class="section-title">
+            Bike & Weather Information
+        </div>
+
+
+        <form action="/predict" method="POST">
+
+
+            <div class="form-grid">
+
+
+                <!-- INSTANT -->
+
+                <div class="form-group">
+
+                    <label for="instant">
+                        Instant
+                    </label>
+
+                    <input
+                        type="number"
+                        id="instant"
+                        name="instant"
+                        placeholder="e.g. 732"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- SEASON -->
+
+                <div class="form-group">
+
+                    <label for="season">
+                        Season
+                    </label>
+
+                    <input
+                        type="number"
+                        id="season"
+                        name="season"
+                        placeholder="1 - 4"
+                        min="1"
+                        max="4"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- YEAR -->
+
+                <div class="form-group">
+
+                    <label for="yr">
+                        Year
+                    </label>
+
+                    <input
+                        type="number"
+                        id="yr"
+                        name="yr"
+                        placeholder="0 or 1"
+                        min="0"
+                        max="1"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- MONTH -->
+
+                <div class="form-group">
+
+                    <label for="mnth">
+                        Month
+                    </label>
+
+                    <input
+                        type="number"
+                        id="mnth"
+                        name="mnth"
+                        placeholder="1 - 12"
+                        min="1"
+                        max="12"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- HOLIDAY -->
+
+                <div class="form-group">
+
+                    <label for="holiday">
+                        Holiday
+                    </label>
+
+                    <input
+                        type="number"
+                        id="holiday"
+                        name="holiday"
+                        placeholder="0 or 1"
+                        min="0"
+                        max="1"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- WEEKDAY -->
+
+                <div class="form-group">
+
+                    <label for="weekday">
+                        Weekday
+                    </label>
+
+                    <input
+                        type="number"
+                        id="weekday"
+                        name="weekday"
+                        placeholder="0 - 6"
+                        min="0"
+                        max="6"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- WORKING DAY -->
+
+                <div class="form-group">
+
+                    <label for="workingday">
+                        Working Day
+                    </label>
+
+                    <input
+                        type="number"
+                        id="workingday"
+                        name="workingday"
+                        placeholder="0 or 1"
+                        min="0"
+                        max="1"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- WEATHER -->
+
+                <div class="form-group">
+
+                    <label for="weathersit">
+                        Weather Situation
+                    </label>
+
+                    <input
+                        type="number"
+                        id="weathersit"
+                        name="weathersit"
+                        placeholder="1 - 4"
+                        min="1"
+                        max="4"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- TEMPERATURE -->
+
+                <div class="form-group">
+
+                    <label for="temp">
+                        Temperature
+                    </label>
+
+                    <input
+                        type="number"
+                        id="temp"
+                        name="temp"
+                        placeholder="e.g. 0.50"
+                        step="any"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- ATEMP -->
+
+                <div class="form-group">
+
+                    <label for="atemp">
+                        Feeling Temperature
+                    </label>
+
+                    <input
+                        type="number"
+                        id="atemp"
+                        name="atemp"
+                        placeholder="e.g. 0.50"
+                        step="any"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- HUMIDITY -->
+
+                <div class="form-group">
+
+                    <label for="hum">
+                        Humidity
+                    </label>
+
+                    <input
+                        type="number"
+                        id="hum"
+                        name="hum"
+                        placeholder="e.g. 0.80"
+                        step="any"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- WINDSPEED -->
+
+                <div class="form-group">
+
+                    <label for="windspeed">
+                        Wind Speed
+                    </label>
+
+                    <input
+                        type="number"
+                        id="windspeed"
+                        name="windspeed"
+                        placeholder="e.g. 0.20"
+                        step="any"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- CASUAL -->
+
+                <div class="form-group">
+
+                    <label for="casual">
+                        Casual Users
+                    </label>
+
+                    <input
+                        type="number"
+                        id="casual"
+                        name="casual"
+                        placeholder="e.g. 50"
+                        min="0"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- REGISTERED -->
+
+                <div class="form-group">
+
+                    <label for="registered">
+                        Registered Users
+                    </label>
+
+                    <input
+                        type="number"
+                        id="registered"
+                        name="registered"
+                        placeholder="e.g. 1000"
+                        min="0"
+                        required
+                    >
+
+                </div>
+
+
+            </div>
+
+
+            <button type="submit">
+                🔮 &nbsp; Predict Bike Rentals
+            </button>
+
+
+        </form>
+
+
+        <!-- RESULT -->
+
+        {% if result is defined %}
+
+        <div class="result">
+
+            <div class="result-title">
+                PREDICTED TOTAL BIKE RENTALS
+            </div>
+
+            <div class="result-value">
+                {{ "%.0f"|format(result) }}
+            </div>
+
+            <div class="result-text">
+                Estimated number of rentals
+            </div>
+
+        </div>
+
+        {% endif %}
+
+
+        <div class="footer">
+            Powered by Python • Flask • Scikit-Learn
+        </div>
+
+
+    </div>
+
+</div>
+
+
+</body>
+
+</html>
